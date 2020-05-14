@@ -51,120 +51,144 @@ full.data$unbound<-rowSums(cbind(full.data$president.congress.2017,
                                  full.data$president.courts.2017, 
                                  full.data$president.media.2017), na.rm=T)
 
-# ######  Chapter 9, Figure 2 #####
-# a<-as.formula(as.factor(close.democracy.2018)~
-#                 authoritarianism+
-#                 female.2016+age.2016+
-#                 college.2017+jewish.2017+income.2016+
-#                 catholic.2017+other.2017)
-# 
-# aa<-as.formula(as.factor(close.democracy.2018)~
-#                  authoritarianism+republican2+
-#                  independent2+republicanXauthoritarianism2+
-#                  independentXauthoritarianism2+
-#                  female.2016+age.2016+
-#                  college.2017+jewish.2017+income.2016+
-#                  catholic.2017+other.2017)
-# 
-# m1a<-nnet::multinom(a, data=full.data)
-# m1b<-nnet::multinom(aa, data=full.data)
-# new<-c("Democracy is preferable", "Democracy is sometimes preferable", "It doesn't matter")
-# p3<-main.effect.V2(m1a, "2017", new)
-# p4<-interactive.effect.V2(m1b, "2017", new)
-# 
-# subset(p4, category=="Democracy is sometimes preferable" & 
-#          authoritarianism==0 & year==year &
-#          PID=="Republican")[,1:5]-
-#   subset(p4, category=="Democracy is sometimes preferable" & 
-#            authoritarianism==1 & year==year &
-#            PID=="Republican")[,1:5]
-# 
-# subset(p4, category=="Democracy is sometimes preferable" & 
-#          authoritarianism==0 & year==year &
-#          PID=="Democrat")[,1:5]-
-#   subset(p4, category=="Democracy is sometimes preferable" & 
-#            authoritarianism==1 & year==year &
-#            PID=="Democrat")[,1:5]
-# 
-# 
-# subset(p4, category=="Democracy is sometimes preferable" & 
-#          authoritarianism==0 & year==year &
-#          PID=="Independent")[,1:5]-
-#   subset(p4, category=="Democracy is sometimes preferable" & 
-#            authoritarianism==1 & year==year &
-#            PID=="Independent")[,1:5]
-# 
-# 
-# 
-# subset(p4, category=="It doesn't matter" & 
-#          authoritarianism==0 & year==year &
-#          PID=="Independent")[,1:5]-
-#   subset(p4, category=="It doesn't matter" & 
-#            authoritarianism==1 & year==year &
-#            PID=="Independent")[,1:5]
-# a<-plot.f2("Which system of government is preferable", "Always Democracy, Sometimes Democracy, or Govnt form doesn't matter?")
-# a
-# 
-# dev.copy(png,'ch9_2.jpg',
-#          width = 750, height = 500)
-# dev.off()
-# 
-# 
-# 
-# ## Important to have a strong leader.
-# a<-as.formula(as.factor(strong.leader.2018)~
-#                 authoritarianism+
-#                 female.2016+age.2016+
-#                 college.2017+jewish.2017+income.2016+
-#                 catholic.2017+other.2017)
-# aa<-as.formula(as.factor(strong.leader.2018)~
-#                  authoritarianism+republican2+
-#                  independent2+republicanXauthoritarianism2+
-#                  independentXauthoritarianism2+
-#                  female.2016+age.2016+
-#                  college.2017+jewish.2017+income.2016+
-#                  catholic.2017+other.2017)
-# m1a<-MASS::polr(a, full.data)
-# m1aa<-MASS::polr(aa, full.data)
-# new=c("Very Bad", "Fairly Bad", "Fairly Good", "Very Good")
-# p3<-rbind(main.effectV1(m1a, "2017", new))
-# p4<-rbind(interactive.effectV1(m1aa, "2017", new))
-# view<-(subset(p4, p4$category=="Fairly Good"|p4$category=="Very Good"))
-# tapply(view[,5], list(view$authoritarianism, view$PID), sum)         
-# a<-plot.f("Strong Leader, without congress/election", "Is it very good, fairly good, fairly bad or very bad way of governing this country?")
-# a
-# dev.copy(png,'ch9_6.jpg',
-#          width = 750, height = 500)
-# dev.off()
-# 
-# 
-# # ######  Chapter 9, Figure 3 #####
-# a<-as.formula(free.speech~
-#                 authoritarianism+
-#                 female.2016+age.2016+
-#                 college.2017+jewish.2017+income.2016+
-#                 catholic.2017+other.2017)
-# aa<-as.formula(free.speech~
-#                  authoritarianism+republican2+
-#                  independent2+republicanXauthoritarianism2+
-#                  independentXauthoritarianism2+
-#                  female.2016+age.2016+
-#                  college.2017+jewish.2017+income.2016+
-#                  catholic.2017+other.2017)
-# m1a<-glm(a, full.data, family=binomial("logit"))
-# m1b<-glm(aa, full.data, family=binomial("logit"))
-# new<-c("Restricted", "Unrestricted")
-# p3<-main.effect.logit.V1(m1a, "2017",new)
-# p4<-interactive.effect.logit.V1(m1b, "2017", new)
-# a<-plot.f3("Free Speech or Restricted Speech?", "")
-# a
-# dev.copy(png,'ch9_3.jpg',
-#          width = 750, height = 500)
-# dev.off()
-# 
-# 
+
+######  Chapter 9, Figure 1 #####
+a<-as.formula(as.factor(close.democracy.2018)~
+                authoritarianism+
+                female.2016+age.2016+
+                college.2017+jewish.2017+income.2016+
+                catholic.2017+other.2017)
+
+aa<-as.formula(as.factor(close.democracy.2018)~
+                 authoritarianism+republican2+
+                 independent2+republicanXauthoritarianism2+
+                 independentXauthoritarianism2+
+                 female.2016+age.2016+
+                 college.2017+jewish.2017+income.2016+
+                 catholic.2017+other.2017)
+
+m1a<-nnet::multinom(a, data=full.data)
+m1b<-nnet::multinom(aa, data=full.data)
+new<-c("Democracy is preferable", "Democracy is sometimes preferable", "It doesn't matter")
+p3<-main.effect.V2(m1a, "2017", new)
+p4<-interactive.effect.V2(m1b, "2017", new)
+
+subset(p4, category=="Democracy is sometimes preferable" & 
+         authoritarianism==0 & year==year &
+         PID=="Republican")[,1:5]-
+  subset(p4, category=="Democracy is sometimes preferable" & 
+           authoritarianism==1 & year==year &
+           PID=="Republican")[,1:5]
+
+subset(p4, category=="Democracy is sometimes preferable" & 
+         authoritarianism==0 & year==year &
+         PID=="Democrat")[,1:5]-
+  subset(p4, category=="Democracy is sometimes preferable" & 
+           authoritarianism==1 & year==year &
+           PID=="Democrat")[,1:5]
 
 
+subset(p4, category=="Democracy is sometimes preferable" & 
+         authoritarianism==0 & year==year &
+         PID=="Independent")[,1:5]-
+  subset(p4, category=="Democracy is sometimes preferable" & 
+           authoritarianism==1 & year==year &
+           PID=="Independent")[,1:5]
+
+
+
+subset(p4, category=="It doesn't matter" & 
+         authoritarianism==0 & year==year &
+         PID=="Independent")[,1:5]-
+  subset(p4, category=="It doesn't matter" & 
+           authoritarianism==1 & year==year &
+           PID=="Independent")[,1:5]
+
+plot.f2<-function(lab1, lab2, lab3){
+  p1<-ggplot(p3,aes(x=authoritarianism,y=cat1.mean.score
+                    , fill=Category)) + 
+    geom_area(color = "black", size = 0.2, alpha = 0.4) + 
+    scale_fill_brewer(direction=10)+
+    geom_area(colour="black", size=.2, alpha=.8)+
+    theme(panel.background=element_rect(fill="white")) +
+    theme(plot.background=element_rect(fill="white")) +
+    theme_bw()+
+    theme(panel.grid.major=element_line(colour="#D0D0D0",size=.25)) +
+    theme(axis.ticks=element_blank())+
+    labs(title = lab1,
+         subtitle= lab2)+
+    theme(plot.title=element_text(hjust=-.08,vjust=2,colour="#3C3C3C",size=12)) +
+    theme(axis.text.x=element_text(size=10,colour="#535353", angle=0)) +
+    theme(axis.text.y=element_text(size=10, colour="#535353")) +
+    theme(axis.title.y=element_text(size=10,colour="#535353",vjust=1.5)) +
+    theme(axis.title.x=element_text(size=10,colour="#535353",vjust=-.5)) +
+    scale_y_continuous("Predicted Probability", limits=c(0,1.04))+
+    scale_x_continuous("Authoritarianism")
+  
+  p1
+  
+  p2<-ggplot(p4,aes(x=authoritarianism,y=cat1.mean.score,
+                    fill=Category)) + 
+    facet_wrap(~PID)+
+    geom_area(color = "black", size = 0.2, alpha = 0.4) + 
+    scale_fill_brewer(direction=-10)+
+    geom_area(colour="black", size=.2, alpha=.8)+
+    theme(panel.background=element_rect(fill="white")) +
+    theme(plot.background=element_rect(fill="white")) +
+    theme_bw()+
+    labs(caption = "Data source: 2016-2019 Voter Study Group")+
+    theme(panel.grid.major=element_line(colour="#D0D0D0",size=.25)) +
+    theme(axis.ticks=element_blank())+
+    theme(plot.title=element_text(hjust=-.08,vjust=2,colour="#3C3C3C",size=12)) +
+    theme(axis.text.x=element_text(size=10,colour="#535353", angle=0)) +
+    theme(axis.text.y=element_text(size=10, colour="#535353")) +
+    theme(axis.title.y=element_text(size=10,colour="#535353",vjust=1.5)) +
+    theme(axis.title.x=element_text(size=10,colour="#535353",vjust=-.5)) +
+    scale_y_continuous("Predicted Probability", limits=c(0,1.02))+
+    scale_x_continuous("Authoritarianism")
+  
+  p2
+  return(ggarrange(p1,p2,
+                   nrow = 2,
+                   common.legend = TRUE, 
+                   legend = "right"))
+  
+  
+}
+a<-plot.f2("Which system of government is preferable", "Always Democracy, Sometimes Democracy, or Govnt form doesn't matter?")
+a
+
+dev.copy(png,'ch9_1.jpg',
+         width = 750, height = 500)
+dev.off()
+
+
+
+## Important to have a strong leader.
+a<-as.formula(as.factor(strong.leader.2018)~
+                authoritarianism+
+                female.2016+age.2016+
+                college.2017+jewish.2017+income.2016+
+                catholic.2017+other.2017)
+aa<-as.formula(as.factor(strong.leader.2018)~
+                 authoritarianism+republican2+
+                 independent2+republicanXauthoritarianism2+
+                 independentXauthoritarianism2+
+                 female.2016+age.2016+
+                 college.2017+jewish.2017+income.2016+
+                 catholic.2017+other.2017)
+m1a<-MASS::polr(a, full.data)
+m1aa<-MASS::polr(aa, full.data)
+new=c("Very Bad", "Fairly Bad", "Fairly Good", "Very Good")
+p3<-rbind(main.effectV1(m1a, "2017", new))
+p4<-rbind(interactive.effectV1(m1aa, "2017", new))
+view<-(subset(p4, p4$category=="Fairly Good"|p4$category=="Very Good"))
+tapply(view[,5], list(view$authoritarianism, view$PID), sum)         
+a<-plot.f("Strong Leader, without congress/election", "Is it very good, fairly good, fairly bad or very bad way of governing this country?")
+a
+dev.copy(png,'ch9_6.jpg',
+         width = 750, height = 500)
+dev.off()
 ##### Army Rule #######
 a<-as.formula(as.factor(army.rule.2018)~
                 authoritarianism+
