@@ -111,31 +111,6 @@ full.data$unbound<-rowSums(cbind(full.data$president.congress.2017,
 # 
 # 
 # 
-# ## Important to have a strong leader.
-# a<-as.formula(as.factor(strong.leader.2018)~
-#                 authoritarianism+
-#                 female.2016+age.2016+
-#                 college.2017+jewish.2017+income.2016+
-#                 catholic.2017+other.2017)
-# aa<-as.formula(as.factor(strong.leader.2018)~
-#                  authoritarianism+republican2+
-#                  independent2+republicanXauthoritarianism2+
-#                  independentXauthoritarianism2+
-#                  female.2016+age.2016+
-#                  college.2017+jewish.2017+income.2016+
-#                  catholic.2017+other.2017)
-# m1a<-MASS::polr(a, full.data)
-# m1aa<-MASS::polr(aa, full.data)
-# new=c("Very Bad", "Fairly Bad", "Fairly Good", "Very Good")
-# p3<-rbind(main.effectV1(m1a, "2017", new))
-# p4<-rbind(interactive.effectV1(m1aa, "2017", new))
-# view<-(subset(p4, p4$category=="Fairly Good"|p4$category=="Very Good"))
-# tapply(view[,5], list(view$authoritarianism, view$PID), sum)         
-# a<-plot.f("Strong Leader, without congress/election", "Is it very good, fairly good, fairly bad or very bad way of governing this country?")
-# a
-# dev.copy(png,'ch9_6.jpg',
-#          width = 750, height = 500)
-# dev.off()
 # 
 # 
 # # ######  Chapter 9, Figure 3 #####
@@ -163,9 +138,86 @@ full.data$unbound<-rowSums(cbind(full.data$president.congress.2017,
 # dev.off()
 # 
 # 
+# ###### Chapter 9, FIgure 4 #######
+# a<-as.formula(as.factor(unbound)~
+#                 authoritarianism+
+#                 female.2016+age.2016+
+#                 college.2017+jewish.2017+income.2016+
+#                 catholic.2017+other.2017)
+# aa<-as.formula(as.factor(unbound)~
+#                  authoritarianism+republican2+
+#                  independent2+republicanXauthoritarianism2+
+#                  independentXauthoritarianism2+
+#                  female.2016+age.2016+
+#                  college.2017+jewish.2017+income.2016+
+#                  catholic.2017+other.2017)
+# m1a<-MASS::polr(a, full.data)
+# m1aa<-MASS::polr(aa, full.data)
+# new=c("0", "1", "2", "3")
+# p3<-main.effectV1(m1a, "2017", new)
+# p4<-interactive.effectV1(m1aa, "2017", new)
+# 
+# subset(p4, category>1 & 
+#             authoritarianism==1&
+#             PID=="Independent")
+# subset(p4, category>1 & 
+#          authoritarianism==0&
+#          PID=="Independent")
+# subset(p4, category>1 & 
+#          authoritarianism==1&
+#          PID=="Democrat")
+# subset(p4, category>1 & 
+#          authoritarianism==0&
+#          PID=="Democrat")
+# 
+# subset(p4, category>1 & 
+#          authoritarianism==1&
+#          PID=="Republican")
+# subset(p4, category>1 & 
+#          authoritarianism==0&
+#          PID=="Republican")
+# a<-plot.f("Authoritarian Support for an Unbound Executive", "")
+# a
+# dev.copy(png,'ch9_4.jpg',
+#          width = 750, height = 500)
+# dev.off()
+# 
+# 
+# #### Chapter 9, Figure 5 ######
+# a<-as.formula(as.factor(strong.leader.2018)~
+#                 authoritarianism+
+#                 female.2016+age.2016+
+#                 college.2017+jewish.2017+income.2016+
+#                 catholic.2017+other.2017)
+# aa<-as.formula(as.factor(strong.leader.2018)~
+#                  authoritarianism+republican2+
+#                  independent2+republicanXauthoritarianism2+
+#                  independentXauthoritarianism2+
+#                  female.2016+age.2016+
+#                  college.2017+jewish.2017+income.2016+
+#                  catholic.2017+other.2017)
+# m1a<-MASS::polr(a, full.data)
+# m1aa<-MASS::polr(aa, full.data)
+# new=c("Very Bad", "Fairly Bad", "Fairly Good", "Very Good")
+# p3<-rbind(main.effectV1(m1a, "2017", new))
+# p4<-rbind(interactive.effectV1(m1aa, "2017", new))
+# View(p3)
+# view<-(subset(p4, p4$category=="Fairly Good"|p4$category=="Very Good"))
+# tapply(view[,5], list(view$authoritarianism, view$PID), sum)
+# a<-plot.f("Strong Leader, without congress/election", "Is it very good, fairly good, fairly bad or very bad way of governing this country?")
+# a
+# dev.copy(png,'ch9_6.jpg',
+#          width = 750, height = 500)
+# dev.off()
+# 
+# 
+# 
+# 
+# 
+# 
+# 
 
-
-##### Army Rule #######
+##### Chapter 9, Figure 6 #######
 a<-as.formula(as.factor(army.rule.2018)~
                 authoritarianism+
                 female.2016+age.2016+
@@ -407,29 +459,6 @@ p4<-interactive.effectV1(m1aa, "2017", new)
 a<-plot.f("Protest by Kneeling during the National Anthem", "")
 a
 dev.copy(png,'ch9_13.jpg',
-         width = 750, height = 500)
-dev.off()
-###### Unbound Executive #######
-a<-as.formula(as.factor(unbound)~
-                authoritarianism+
-                female.2016+age.2016+
-                college.2017+jewish.2017+income.2016+
-                catholic.2017+other.2017)
-aa<-as.formula(as.factor(unbound)~
-                 authoritarianism+republican2+
-                 independent2+republicanXauthoritarianism2+
-                 independentXauthoritarianism2+
-                 female.2016+age.2016+
-                 college.2017+jewish.2017+income.2016+
-                 catholic.2017+other.2017)
-m1a<-MASS::polr(a, full.data)
-m1aa<-MASS::polr(aa, full.data)
-new=c("0", "1", "2", "3")
-p3<-main.effectV1(m1a, "2017", new)
-p4<-interactive.effectV1(m1aa, "2017", new)
-a<-plot.f("Authoritarian Support for an Unbound Executive", "")
-a
-dev.copy(png,'ch9_14.jpg',
          width = 750, height = 500)
 dev.off()
 }
