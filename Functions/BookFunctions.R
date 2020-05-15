@@ -109,6 +109,59 @@ plot.f2<-function(lab1, lab2, lab3){
   
 }
 
+plot.f3<-function(lab1, lab2, lab3){
+  p1<-ggplot(p3,aes(x=authoritarianism,y=mean.score
+                    , fill=Category)) + 
+    geom_area(color = "black", size = 0.2, alpha = 0.4) + 
+    scale_fill_brewer(direction=10)+
+    geom_area(colour="black", size=.2, alpha=.8)+
+    theme(panel.background=element_rect(fill="white")) +
+    theme(plot.background=element_rect(fill="white")) +
+    theme_bw()+
+    theme(panel.grid.major=element_line(colour="#D0D0D0",size=.25)) +
+    theme(axis.ticks=element_blank())+
+    labs(title = lab1,
+         subtitle= lab2)+
+    theme(plot.title=element_text(hjust=-.08,vjust=2,colour="#3C3C3C",size=12)) +
+    theme(axis.text.x=element_text(size=10,colour="#535353", angle=0)) +
+    theme(axis.text.y=element_text(size=10, colour="#535353")) +
+    theme(axis.title.y=element_text(size=10,colour="#535353",vjust=1.5)) +
+    theme(axis.title.x=element_text(size=10,colour="#535353",vjust=-.5)) +
+    scale_y_continuous("Predicted Probability", limits=c(0,1.04))+
+    scale_x_continuous("Authoritarianism")
+  
+  p1
+  
+  p2<-ggplot(p4,aes(x=authoritarianism,y=mean.score
+                    , fill=Category)) + 
+    facet_wrap(~PID)+
+    geom_area(color = "black", size = 0.2, alpha = 0.4) + 
+    scale_fill_brewer(direction=-10)+
+    geom_area(colour="black", size=.2, alpha=.8)+
+    theme(panel.background=element_rect(fill="white")) +
+    theme(plot.background=element_rect(fill="white")) +
+    theme_bw()+
+    labs(caption = "Data source: 2016-2019 Voter Study Group")+
+    theme(panel.grid.major=element_line(colour="#D0D0D0",size=.25)) +
+    theme(axis.ticks=element_blank())+
+    theme(plot.title=element_text(hjust=-.08,vjust=2,colour="#3C3C3C",size=12)) +
+    theme(axis.text.x=element_text(size=10,colour="#535353", angle=0)) +
+    theme(axis.text.y=element_text(size=10, colour="#535353")) +
+    theme(axis.title.y=element_text(size=10,colour="#535353",vjust=1.5)) +
+    theme(axis.title.x=element_text(size=10,colour="#535353",vjust=-.5)) +
+    scale_y_continuous("Predicted Probability", limits=c(0,1.02))+
+    scale_x_continuous("Authoritarianism")
+  
+  p2
+  return(ggarrange(p1,p2,
+                   nrow = 2,
+                   common.legend = TRUE, 
+                   legend = "right"))
+  
+  
+}
+
+
 # Start with a matrix with no interactions
 # Function for both ordinal and non-ordinal data. Need to specify model object, covariate name, value, and whether intercept/ordinal is specified
 design.matrix.predictive<-function(output, covariate.name, covariate.value, ordinal=FALSE){

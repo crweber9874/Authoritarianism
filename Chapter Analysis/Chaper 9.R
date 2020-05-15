@@ -232,6 +232,7 @@ aa<-as.formula(as.factor(army.rule.2018)~
                  catholic.2017+other.2017)
 m1a<-MASS::polr(a, full.data)
 m1aa<-MASS::polr(aa, full.data)
+#Test
 new=c("Very Bad", "Fairly Bad", "Fairly Good", "Very Good")
 p3<-rbind(main.effectV1(m1a, "2017", new))
 p4<-rbind(interactive.effectV1(m1aa, "2017", new))
