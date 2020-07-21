@@ -892,7 +892,50 @@ pid.alignment.auth<-function(output, type="social", authoritarian="authoritarian
                                         mean.score=quantile(g3, 0.5))
   ))
 }
+logit.difference<-function(output, mod=0){
+  require(MASS)
+  t<-model.matrix(output)
+  p<-cbind(
+    1,
+    1,  #High Authoritarianism
+    mod,
+    mod*1,
+    1*t[,6],
+    t[,6],
+    t[,7:dim(t)[2]])
+  o<-cbind(
+    1,
+    0,  #Low Authoritarianism
+    mod,
+    mod*0,
+    0*t[,6],
+    t[,6],
+    t[,7:dim(t)[2]])
+  beta.sim<-mvrnorm(1000, c(output$coefficients), vcov(output)) ##Draw samples from multivariate distrbution
+  g1<-apply(plogis(p%*%t(beta.sim)), 2, mean) ### The average effect. Simulate b and auth
+  g2<-apply(plogis(o%*%t(beta.sim)), 2, mean) ### The average effect. Simulate b and auth
+  p1<-g1-g2
+  return(list(marginal=data.frame(min.2.5=quantile(p1, 0.025),
+                                  min.25=quantile(p1, 0.25),
+                                  max.75= quantile(p1, 0.75),
+                                  max.97.5=quantile(p1, 0.975),
+                                  mean.score=quantile(p1, 0.5)),
+              high=data.frame(min.2.5=quantile(g1, 0.025),
+                              min.25=quantile(g1, 0.25),
+                              max.75= quantile(g1, 0.75),
+                              max.97.5=quantile(g1, 0.975),
+                              mean.score=quantile(g1, 0.5)),
+              low=data.frame(min.2.5=quantile(g2, 0.025),
+                             min.25=quantile(g2, 0.25),
+                             max.75= quantile(g2, 0.75),
+                             max.97.5=quantile(g2, 0.975),
+                             mean.score=quantile(g2, 0.5))
+              
+  ))
+}
+
 ### Plot marginal effects at max differences and no difference ###
+
 logit.marginal.pid<-function(output, group="Republican", eval.cov="Republican"){
   require(MASS)
   t<-model.matrix(output)

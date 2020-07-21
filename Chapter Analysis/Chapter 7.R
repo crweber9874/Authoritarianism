@@ -7,8 +7,8 @@
 require(car)
 require(ggplot2)
 require(rstan)
-require(sem)
-options(mc.cores = parallel::detectCores()).
+require(semPlot)
+options(mc.cores = parallel::detectCores())
 rstan_options(auto_write = TRUE)
 
 
@@ -17,7 +17,6 @@ rstan_options(auto_write = TRUE)
 #                                           Part I: Alignment, Measurement Stuff                                                                    #
 #####################################################################################################################################
 #####################################################################################################################################
-
 rm(list=ls())
 source("/Users/chrisweber/dropbox/working projects/Authoritarianism_BookProject/analysis/functions/BookFunctions.R")
 #Figure working directory#
@@ -25,14 +24,17 @@ setwd("/Users/chrisweber/Dropbox/Working Projects/Authoritarianism_BookProject/B
 ### Load measurement models ###
 outfile<-"/Users/chrisweber/Dropbox/Working Projects/Authoritarianism_BookProject/Analysis/Measurement Models/Chapter 7 Measurement Model_M1.out"
 
-pdf("ch7_1.pdf", width=8, height=7)
 semPlot::semPaths(outfile, what="paths", "est", style="lisrel", rotation=1,
                   thresholds=FALSE, residuals=FALSE, intercepts=FALSE, 
                   sizeMan2=2, sizeMan=7, sizeLat2=7, sizeLat=6, 
                   label.prop=0.5, label.cex=0.5, title=TRUE, node.width=1,
                   edge.label.cex = 0.5, 
                   nCharNodes=0, label.font=3, label.scale=FALSE)
+dev.copy(png,'ch6_F1.jpg',
+         width = 750, height = 500)
 dev.off()
+
+
 detach("package:dplyr")
 ##### Estimate a varying loading model ####
 load("/Users/chrisweber/Dropbox/Working Projects/Authoritarianism_BookProject/Data/Recoded Data/pooled.auth.Rdata")
@@ -451,7 +453,7 @@ tv.data<-data.frame(with(full.data, cbind(watch.abc , watch.abclate ,
                                           watch.mtp , watch.nbc , watch.nightline , watch.oreilly , 
                                           watch.outfront , watch.pbs , watch.sixtyminutes , 
                                           watch.stateunion , watch.thisweek , watch.today , 
-                                          watch.vansustern, authoritarianism, female, age, college.2011, income.2011,
+                                          watch.vansustern, authoritarianism, female.2016, age.2016, college.2011, income.2011,
                                           jewish.2011, catholic.2011, other.2011)))
 
 names(tv.data)<-c("ABC.Primetime", "ABC.Late", "American.Morning.CNN",
@@ -505,10 +507,28 @@ plot<-ggplot() +
   theme(axis.text.y=element_text(size=11, colour="#535353",face="bold")) +
   theme(axis.title.y=element_text(size=11,colour="#535353",face="bold",vjust=1.5)) +
   theme(axis.title.x=element_text(size=11,colour="#535353",face="bold",vjust=-.5)) +
+  theme(panel.background=element_rect(fill="white")) +
+  theme(plot.background=element_rect(fill="white")) +
+  theme_bw()+
+  scale_colour_manual(name="Ideology", values=c("grey47", "black", "grey79"))+
+  # Format the grid
+  theme(panel.grid.major=element_line(colour="#D0D0D0",size=.25)) +
+  theme(axis.ticks=element_blank())+
+  ggtitle("Correlations between Fisal, Social, and Symbolic Ideology. White Respondents") +
+  theme(plot.title=element_text(face="bold",hjust=-.08,vjust=2,colour="#3C3C3C",size=12)) +
+  theme(axis.text.x=element_text(size=11,colour="#535353",face="bold", angle=0)) +
+  theme(axis.text.y=element_text(size=11, colour="#535353",face="bold")) +
+  theme(axis.title.y=element_text(size=11,colour="#535353",face="bold",vjust=1.5)) +
+  theme(axis.title.x=element_text(size=11,colour="#535353",face="bold",vjust=-.5)) 
   scale_y_continuous("Dimension 2")+
   scale_x_continuous("Dimension 1")
 
-
+  plot
+  dev.copy(png,'ch7_media.jpg',
+           width = 750, height = 500,)
+  dev.off()
+  
+  
 tv.data$Fox.News=rowSums(cbind(tv.data$Fox.and.Friends.Fox, tv.data$Fox.Primetime, tv.data$O.Reilly.Factor.Fox,
                                tv.data$Great.Van.Sustern.Fox, tv.data$Fox.Sunday, tv.data$Hannity.Fox), na.rm=T)
 tv.data$Network=rowSums(cbind(tv.data$ABC.Primetime+tv.data$ABC.Late+tv.data$Forty.Eight.Hours.CBS, tv.data$CBS.Primetime, tv.data$Early.Show.CBS,
@@ -580,7 +600,7 @@ plot1<-ggplot(data = count.model,
   geom_point(position = position_dodge(width = 0.01))+
   geom_errorbar(position = position_dodge(width = 0.01), width = 0.01) +
   geom_errorbar(aes(x = factor(Media), 
-                    y = mean, ymin=min2, ymax=max2),
+                    y = mean, ymin=min2, ymax=max2), 
                 position = position_dodge(width = 0.01), width = 0.01, size=0.9)+
   coord_flip()+
   theme(text=element_text(size=10), 
@@ -671,7 +691,7 @@ plot1
 dev.copy(png,'ch7_7.jpg',
          width = 750, height = 500,)
 dev.off()
-}
+
 ################################################################################################################
 
 
@@ -681,7 +701,7 @@ dev.off()
 #####################################################################################################################################
 #####################################################################################################################################
 #Figure 5:
-{
+
 require(nnet)
 require(car)
 load("/Users/chrisweber/Dropbox/Working Projects/Authoritarianism_BookProject/Data/panel2000.RData")
@@ -704,13 +724,16 @@ y$rid<-seq(1:nrow(y))
 outfile<-"/Users/chrisweber/Dropbox/Working Projects/Authoritarianism_BookProject/Analysis/Measurement Models/Chapter 7 Panel_M3.out"
 labels<-c("Feminists", "Gays", "Fundamentalists", "Abortion", "Marriage",
           "Insurance", "Services", "Jobs", "Social", "Fiscal")
-pdf("ch7_8.pdf", width=8, height=7)
 semPlot::semPaths(outfile, what="paths", "est", style="lisrel", rotation=2,
                   thresholds=FALSE, residuals=FALSE, intercepts=FALSE,
                   sizeMan2=2, sizeMan=7, sizeLat2=7, sizeLat=6, 
                   label.prop=0.5, label.cex=0.5, title=TRUE, node.width=1,
                   edge.label.cex = 0.5, 
                   nCharNodes=0, label.font=3, label.scale=FALSE, nodeLabels=labels)
+
+
+dev.copy(png,'ch7_f2.jpg',
+         width = 750, height = 500,)
 dev.off()
 
 detach("package:dplyr")
@@ -1005,7 +1028,7 @@ plot1
 dev.copy(png,'ch7_10.jpg',
          width = 750, height = 500,)
 dev.off()
-}
+
 ################################################################################################################
 
 
@@ -1013,15 +1036,13 @@ dev.off()
 #####                                       Part II. Spatial Model ####
 #####################################################################################################################################
 #####################################################################################################################################
-{
+
 rm(list=ls())
 require(foreign)
 require(mirt)
 require(ggplot2)
 require(rstan)
-
 setwd("/Users/chrisweber/Dropbox/Working Projects/Authoritarianism_BookProject/Book/Chapters/Edited Chapters_Weber/Figures/")
-
 load("/Users/chrisweber/Dropbox/Working Projects/Authoritarianism_BookProject/Data/Recoded Data/spatial.Rdata")
 source("/Users/chrisweber/dropbox/working projects/Authoritarianism_BookProject/analysis/functions/BookFunctions.R")
 spatial.model$auth<-(rowMeans(cbind(spatial.model$auth.1, spatial.model$auth.2,spatial.model$auth.3, spatial.model$auth.4), na.rm=T)-1)/2
@@ -1140,23 +1161,23 @@ m5b<-lm(a, subset(y, year==2012))
 m6b<-lm(a, subset(y, year==2016))
 
 
-data1<-rbind(pred.ols(m1a, 1000)[[1]],pred.ols(m2a, 1000)[[1]],
-             pred.ols(m3a, 1000)[[1]],pred.ols(m4a, 1000)[[1]],
-             pred.ols(m5a, 1000)[[1]],pred.ols(m6a, 1000)[[1]],
-             pred.ols(m1a, 1000)[[2]],pred.ols(m2a, 1000)[[2]],
-             pred.ols(m3a, 1000)[[2]],pred.ols(m4a, 1000)[[2]],
-             pred.ols(m5a, 1000)[[2]],pred.ols(m6a, 1000)[[2]]
+data1<-rbind(pred.ols.authoritarianism(m1a)[[1]],pred.ols.authoritarianism(m2a)[[1]],
+             pred.ols.authoritarianism(m3a)[[1]],pred.ols.authoritarianism(m4a)[[1]],
+             pred.ols.authoritarianism(m5a)[[1]],pred.ols.authoritarianism(m6a)[[1]],
+             pred.ols.authoritarianism(m1a)[[2]],pred.ols.authoritarianism(m2a)[[2]],
+             pred.ols.authoritarianism(m3a)[[2]],pred.ols.authoritarianism(m4a)[[2]],
+             pred.ols.authoritarianism(m5a)[[2]],pred.ols.authoritarianism(m6a)[[2]]
 )
 names(data1)<-c("min1", "min2", "max2", "max1", "mean")
 data1$year<-rep(c(1992,2000,2004, 2008, 2012, 2016), times=2)   
 data1$authoritarianism<-rep(c("High", "Low"), each=6)      
 
-data2<-rbind(pred.ols(m1b, 1000)[[1]],pred.ols(m2b, 1000)[[1]],
-             pred.ols(m3b, 1000)[[1]],pred.ols(m4b, 1000)[[1]],
-             pred.ols(m5b, 1000)[[1]],pred.ols(m6b, 1000)[[1]],
-             pred.ols(m1b, 1000)[[2]],pred.ols(m2b, 1000)[[2]],
-             pred.ols(m3b, 1000)[[2]],pred.ols(m4b, 1000)[[2]],
-             pred.ols(m5b, 1000)[[2]],pred.ols(m6b, 1000)[[2]]
+data2<-rbind(pred.ols.authoritarianism(m1b)[[1]],pred.ols.authoritarianism(m2b)[[1]],
+             pred.ols.authoritarianism(m3b)[[1]],pred.ols.authoritarianism(m4b)[[1]],
+             pred.ols.authoritarianism(m5b)[[1]],pred.ols.authoritarianism(m6b)[[1]],
+             pred.ols.authoritarianism(m1b)[[2]],pred.ols.authoritarianism(m2b)[[2]],
+             pred.ols.authoritarianism(m3b)[[2]],pred.ols.authoritarianism(m4b)[[2]],
+             pred.ols.authoritarianism(m5b)[[2]],pred.ols.authoritarianism(m6b)[[2]]
 )
 names(data2)<-c("min1", "min2", "max2", "max1", "mean")
 data2$year<-rep(c(1992,2000,2004, 2008, 2012, 2016), times=2)   
@@ -1171,7 +1192,7 @@ plot1<-ggplot(data = data1,
   geom_errorbar(aes(x = as.factor(year), 
                     y = mean, ymin=min2, 
                     ymax=max2, linetype=authoritarianism),
-                position = position_dodge(width = 0.01), width = 0.01, size=0.9)+
+                position = position_dodge(width = 0.01), width = 0.01, size=0.7)+
   coord_flip()+
   scale_linetype_manual(name="Authoritarianism", values=c("solid", "solid"))+
   scale_colour_manual(name="Authoritarianism", values=c("black", "grey79"))+
@@ -1325,141 +1346,6 @@ y$d2008<-ifelse(y$year==2008, 1, 0)
 y$d2012<-ifelse(y$year==2012, 1, 0)
 y$d2016<-ifelse(y$year==2016, 1, 0)
 
-### Stan Utility Maximization ####
-table(y$ideology)
-table(y$d.score)
-table(y$r.score)
-
-theta.adj1<-0.5/(abs(unique(y$r.score)-unique(y$d.score)))
-theta.adj2<-0.68*theta.adj1-0.25
-
-bugs.data<-na.omit(cbind(y$vote, zero.one(y$ideology)*theta.adj1-theta.adj2, 
-                         zero.one(y$auth) ))
-#,as.numeric(as.factor(y$party3)
-#                                    )))
-
-low<-range(zero.one(y$ideology)*theta.adj1-theta.adj2, na.rm=T)[1]
-high<-range(zero.one(y$ideology)*theta.adj1-theta.adj2, na.rm=T)[2]
-
-N=nrow(bugs.data)
-dv<-bugs.data[,1]
-x1<-bugs.data[,2]
-x2<-bugs.data[,3]
-sim<-seq(low, high, by=0.1)
-sim2<-seq(0, 1, by=0.1)
-
-### Bayesian Model, No PID interaction ###
-data<-list(N=N, y=dv, 
-           x1=x1, 
-           x2=x2, 
-           inte=x1*x2,
-           sim=sim, 
-           sim2=sim2,
-           t=length(sim),
-           t2=length(sim2)
-)
-spatial.model<-"
-  data {
-    int N;                // number of respondents
-    int t;                // number of simulated authoritarian responses
-    int t2;                // number of simulated authoritarian responses
-    int<lower=0,upper=1> y[N];    
-    vector[N] x1;
-    vector[N] x2;
-    vector[N] inte;
-    vector[t] sim;
-    vector[t2] sim2;
-}
-parameters {   
-  real alpha;   
-  real beta[3]; 
-}
-
-model {
-  beta~normal(0,5);
-  alpha~normal(0,5);
-   y~bernoulli(Phi(alpha+beta[1]*x1+beta[2]*x2+beta[3]*inte));
-}
- generated quantities {
-   vector[t] pi1;
-   vector[t] pi2;
-   vector[t2] ipi1;
-   vector[t2] ipi2;
-   pi1=alpha+(beta[1]+beta[3]*1)*sim+beta[2]*1;
-   pi2=alpha+(beta[1]+beta[3]*0)*sim+beta[2]*0;
-    }
-"
-fit <- stan(model_code =spatial.model, 
-            data = data, iter=20000,
-            chains=3)
-#shinystan::launch_shinystan(fit)  ##Reasonable convergence statistics
-p.e <- rstan::extract(fit)
-plot.data1<-data.frame(
-  cbind(
-    apply(pnorm(p.e$pi1), 2, quantile, 0.025),
-    apply(pnorm(p.e$pi1), 2, quantile, 0.975),
-    apply(pnorm(p.e$pi1), 2, quantile, 0.25),
-    apply(pnorm(p.e$pi1), 2, quantile, 0.75),
-    apply(pnorm(p.e$pi1), 2, quantile, 0.5))
-)
-
-
-plot.data2<-data.frame(
-  cbind(
-    apply(pnorm(p.e$pi2), 2, quantile, 0.025),
-    apply(pnorm(p.e$pi2), 2, quantile, 0.975),
-    apply(pnorm(p.e$pi2), 2, quantile, 0.25),
-    apply(pnorm(p.e$pi2), 2, quantile, 0.75),
-    apply(pnorm(p.e$pi2), 2, quantile, 0.5))
-)
-
-
-names(plot.data1)<-names(plot.data2)<-c("min1", "min2", "max2", "max1", "mean")
-plot.data<-rbind(plot.data1, plot.data2)
-plot.data$score<-rep(sim, times=2)
-plot.data$group<-rep(c("Authoritarian","Non-Authoritarian"), each=length(sim))
-plot.data$norm<-pnorm(plot.data$score*5)
-
-
-
-plot1<-ggplot(data = plot.data,
-              aes(x = score, 
-                  y = mean, ymin=min1, 
-                  ymax=max1, group=group))+
-  geom_ribbon(fill="grey79", alpha=0.5)+
-  geom_ribbon(aes(x=score, ymin=min2, ymax=max2), fill="grey79", alpha=0.5)+
-  geom_line(aes(x=score, y=mean, group=group, colour=group))+
-  theme(text=element_text(size=10), 
-        axis.text.y=element_text(angle=0))+
-  theme(panel.background=element_rect(fill="white")) +
-  theme(plot.background=element_rect(fill="white")) +
-  theme_bw()+
-  # Format the grid
-  theme(panel.grid.major=element_line(colour="#D0D0D0",size=.25)) +
-  theme(axis.ticks=element_blank())+
-  ggtitle("Republican Vote by Ideal Point. White Respondents") +
-  theme(plot.title=element_text(face="bold",hjust=-.08,vjust=2,colour="#3C3C3C",size=12)) +
-  theme(axis.text.x=element_text(size=11,colour="#535353",face="bold", angle=0)) +
-  theme(axis.text.y=element_text(size=11, colour="#535353",face="bold")) +
-  theme(axis.title.y=element_text(size=11,colour="#535353",face="bold",vjust=1.5)) +
-  theme(axis.title.x=element_text(size=11,colour="#535353",face="bold",vjust=-.5)) +
-  scale_y_continuous("Probability", limits=c(0,1))+
-  scale_x_continuous("Ideal Point Score (Conservative)", breaks=c(-0.25, 0, 0.25),
-                     label=c("D", "(D+R)/2", "R"))+
-  geom_vline(aes(xintercept=-0.25), linetype="dotted")+
-  geom_vline(aes(xintercept=0), linetype="dotted")+
-  geom_vline(aes(xintercept=0.25), linetype="dotted")+
-  scale_colour_manual(name="Authoritarianism", values=c("black", "grey79"))+
-  geom_hline(aes(yintercept=0.5), linetype="dotted")+
-  geom_line(aes(x=score, y=norm), linetype="dashed")
-
-plot1
-################################################################################################################
-################################################################################################################
-
-dev.copy(png,'ch7_13x.jpg',
-         width = 750, height = 500,)
-dev.off()
 
 ################################################################################################################
 
@@ -2013,7 +1899,6 @@ dev.off()
 ################################################################################################################
 
 
-}
 
 ### END ####
 
