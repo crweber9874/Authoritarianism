@@ -357,11 +357,7 @@ o<-pmatrix.msm(model, t=2, ci="none", covariates=list(authoritarianism=1, colleg
                                                         sex=1, catholic=0, age=mean(data$age, na.rm=T)))
 print(t)
 print(o)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 291e8b4bc26160f1d3c52b723655023ac79c9e0c
+
 
 ### Stanley's question about heterogeneous transitions ####
 # 
@@ -379,10 +375,6 @@ print(o)
 # pmatrix.msm(model, t=1, 2, ci="none",  covariates=list(authoritarianism=0, college=0, income=0,
 #                                                        sex=0, catholic=0, age=mean(data$age, na.rm=T)))
 # 
-<<<<<<< HEAD
->>>>>>> 291e8b4bc26160f1d3c52b723655023ac79c9e0c
-=======
->>>>>>> 291e8b4bc26160f1d3c52b723655023ac79c9e0c
 table(data$college)
 table(data$income)
 table(data$sex)
@@ -488,8 +480,6 @@ prop.table(table(d4$pid3.1, d4$pid3.3), 1)
 dim(model.matrix(lm(d4$pid3.1~d4$pid3.3)))
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 data<-data.frame(id=rep(1:length(d4$id), times=5), state=c(d4$pid3.1, d4$pid3.3, d4$pid3.4, 
                                                            d4$pid3.5, d4$pid3.6),
                  authoritarianism=rep(d4$authoritarianism, times=5),
@@ -919,8 +909,6 @@ plot.1992<-
         rt1 [pos =  '0,0!', label = 'Republican Candidate\n(t-1)',  fontsize=14]
         
         #Dem
-<<<<<<< HEAD
-<<<<<<< HEAD
         dd [pos = '-2,1!', label = 'Democrat',  fontsize=14, xlabel=<Low=<b>0.82</b> <br/> <font color='black'> High=<i>0.76</i> </font> >]
         dr [pos = '2, 1!', label = 'Republican',  fontsize=14, xlabel=<<b>0.18</b> <br/> <font color='black'> <i>0.23</i> </font> >]
         
