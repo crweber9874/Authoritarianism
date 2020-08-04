@@ -906,32 +906,30 @@ plot.1992<-
         color = crimson]
         node [shape = rectangle]
         
-        dt1 [pos =  '0,3!', label = 'Democratic Candidate\n(t-1)',  fontsize=20]
-        rt1 [pos =  '0,0!', label = 'Republican Candidate\n(t-1)',  fontsize=20]
+        dt1 [pos =  '0,3!', label = 'Democrat(t-1)',  fontsize=20]
+        rt1 [pos =  '0,0!', label = 'Republican(t-1)',  fontsize=20]
         
-        #Dem
+
         dd [pos = '-2,1!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.82</b> <br/> <font color='black'> High=<i>0.76</i> </font> >]
         dr [pos = '2, 1!', label = 'Republican',  fontsize=20, xlabel=<<b>0.18</b> <br/> <font color='black'> <i>0.23</i> </font> >]
-        
-        #Rep
-        rd [pos = '-2,-2!', label = 'Democratic',  fontsize=20, xlabel=<Low=<b>0.11</b> <br/> <font color='black'> High=<i>0.16</i> </font> >]
-        rr [pos = '2, -2!',  label = 'Republican',  fontsize=20, xlabel=<<b>0.89</b> <br/> <font color='black'> <i>0.84</i> </font> >]
-        dd [pos = '-2,1!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.84</b> <br/> <font color='black'> High=<i>0.83</i> </font> >]
-        dr [pos = '2, 1!', label = 'Republican',  fontsize=20, xlabel=<<b>0.16</b> <br/> <font color='black'> <i>0.17</i> </font> >]
-        
-        #Rep
-        rd [pos = '-2,-2!', label = 'Democratic',  fontsize=20, xlabel=<Low=<b>0.13</b> <br/> <font color='black'> High=<i>0.22</i> </font> >]
-        rr [pos = '2, -2!',  label = 'Republican',  fontsize=20, xlabel=<<b>0.87</b> <br/> <font color='black'> <i>0.78</i> </font> >]
 
+        rr [pos = '2, -2!',  label = 'Republican',  fontsize=20, xlabel=<<b>0.89</b> <br/> <font color='black'> <i>0.84</i> </font> >]
+        rd [pos = '-2,-2!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.11</b> <br/> <font color='black'> High=<i>0.16</i> </font> >]
+        
         dt1->dd  [ headport=n]
         dt1->dr  [ headport=n]
         
         rt1->rd [ headport=n]
         rt1->rr [ headport=n]
+
         
         }")
 
 plot.1992
+
+
+
+
 
 #### 2000-2004
 ##### Vote in House Election ###
@@ -990,28 +988,26 @@ plot.2000<-
         color = crimson]
         node [shape = rectangle]
         
-        dt1 [pos =  '0,3!', label = 'Democratic Candidate\n(t-1)',  fontsize=20]
-        rt1 [pos =  '0,0!', label = 'Republican Candidate\n(t-1)',  fontsize=20]
+        
+        
+        dt1 [pos =  '0,3!', label = 'Democrat',  fontsize=20]
+        rt1 [pos =  '0,0!', label = 'Republican',  fontsize=20]
+        
+        # High authoritairan
         
         #Dem
-        dd [pos = '-2,1!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.92</b> <br/> <font color='black'> High=<i>0.63</i> </font> >]
-        dr [pos = '2, 1!', label = 'Republican',  fontsize=20, xlabel=<<b>0.07</b> <br/> <font color='black'> <i>0.37</i> </font> >]
-        
-        #Rep
-        rd [pos = '-2,-2!', label = 'Democratic',  fontsize=20, xlabel=<Low=<b>0.15</b> <br/> <font color='black'> High=<i>0.12</i> </font> >]
-        rr [pos = '2, -2!',  label = 'Republican',  fontsize=20, xlabel=<<b>0.85</b> <br/> <font color='black'> <i>0.88</i> </font> >]
-        dd [pos = '-2,1!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.94</b> <br/> <font color='black'> High=<i>0.75</i> </font> >]
-        dr [pos = '2, 1!', label = 'Republican',  fontsize=20, xlabel=<<b>0.06</b> <br/> <font color='black'> <i>0.25</i> </font> >]
-        
-        #Rep
-        rd [pos = '-2,-2!', label = 'Democratic',  fontsize=20, xlabel=<Low=<b>0.15</b> <br/> <font color='black'> High=<i>0.13</i> </font> >]
-        rr [pos = '2, -2!',  label = 'Republican',  fontsize=20, xlabel=<<b>0.85</b> <br/> <font color='black'> <i>0.86</i> </font> >]
+        dd [pos = '-2,1!', label = 'Democratic',  fontsize=20, xlabel=<Low=<b>0.92</b> <br/> <font color='black'> High=<i>0.63</i> </font> >]
+        dr [pos = '2, 1!', label = 'Republican',  fontsize=20, xlabel=<<b>0.08</b> <br/> <font color='black'> <i>0.37</i> </font> >]
 
+        rr [pos = '2, -2!',  label = 'Republican',  fontsize=20, xlabel=<<b>0.85</b> <br/> <font color='black'> <i>0.88</i> </font> >]
+        rd [pos = '-2,-2!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.15</b> <br/> <font color='black'> High=<i>0.12</i> </font> >]
+        
         dt1->dd  [ headport=n]
         dt1->dr  [ headport=n]
         
         rt1->rd [ headport=n]
         rt1->rr [ headport=n]
+
         
         }")
 
@@ -1073,28 +1069,18 @@ plot.1992<-
         color = crimson]
         node [shape = rectangle]
         
-        dt1 [pos =  '0,3!', label = 'Clinton(1992, Democrat)',  fontsize=20]
-        rt1 [pos =  '0,0!', label = 'Bush(1992, Republican)',  fontsize=20]
+        dt1 [pos =  '0,3!', label = 'Democrat(t-1)',  fontsize=20]
+        rt1 [pos =  '0,0!', label = 'Republican(t-1)',  fontsize=20]
+        
+        # High authoritairan
         
         #Dem
-        dd [pos = '-2,1!', label = 'Clinton(1996, Democrat)',  fontsize=20, xlabel=<Low=<b>0.96</b> <br/> <font color='black'> High=<i>0.74</i> </font> >]
-        dr [pos = '2, 1!', label = 'Dole(1996, Republican)',  fontsize=20, xlabel=<<b>0.04</b> <br/> <font color='black'> <i>0.26</i> </font> >]
-        
-        #Rep
-        rd [pos = '-2,-2!', label = 'Clinton(1996, Democrat)',  fontsize=20, xlabel=<Low=<b>0.09</b> <br/> <font color='black'> High=<i>0.13</i> </font> >]
-        rr [pos = '2, -2!',  label = 'Dole(1996, Republican)',  fontsize=20, xlabel=<<b>0.91</b> <br/> <font color='black'> <i>0.87</i> </font> >]
+        dd [pos = '-2,1!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.96</b> <br/> <font color='black'> High=<i>0.73</i> </font> >]
+        dr [pos = '2, 1!', label = 'Republican',  fontsize=20, xlabel=<<b>0.04</b> <br/> <font color='black'> <i>0.26</i> </font> >]
 
-        dt1 [pos =  '0,3!', label = 'Democratic Candidate\n(t-1)',  fontsize=20]
-        rt1 [pos =  '0,0!', label = 'Republican Candidate\n(t-1)',  fontsize=20]
+        rr [pos = '2, -2!',  label = 'Republican',  fontsize=20, xlabel=<<b>0.91</b> <br/> <font color='black'> <i>0.87</i> </font> >]
+        rd [pos = '-2,-2!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.09</b> <br/> <font color='black'> High=<i>0.12</i> </font> >]
         
-        #Dem
-        dd [pos = '-2,1!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.97</b> <br/> <font color='black'> High=<i>0.84</i> </font> >]
-        dr [pos = '2, 1!', label = 'Republican',  fontsize=20, xlabel=<<b>0.03</b> <br/> <font color='black'> <i>0.16</i> </font> >]
-        
-        #Rep
-        rd [pos = '-2,-2!', label = 'Democratic',  fontsize=20, xlabel=<Low=<b>0.16</b> <br/> <font color='black'> High=<i>0.23</i> </font> >]
-        rr [pos = '2, -2!',  label = 'Republican',  fontsize=20, xlabel=<<b>0.84</b> <br/> <font color='black'> <i>0.77</i> </font> >]
-
         dt1->dd  [ headport=n]
         dt1->dr  [ headport=n]
         
@@ -1161,27 +1147,17 @@ plot.2000<-
         color = crimson]
         node [shape = rectangle]
         
-        dt1 [pos =  '0,3!', label = 'Gore(2000, Democrat)',  fontsize=20]
-        rt1 [pos =  '0,0!', label = 'Bush(2000, Republican',  fontsize=20]
+        dt1 [pos =  '0,3!', label = 'Democrat(t-1)',  fontsize=20]
+        rt1 [pos =  '0,0!', label = 'Republican(t-1)',  fontsize=20]
         
         #Dem
-        dd [pos = '-2,1!', label = 'Kerry(2004, Democrat)',  fontsize=20, xlabel=<Low=<b>0.94</b> <br/> <font color='black'> High=<i>0.62</i> </font> >]
-        dr [pos = '2, 1!', label = 'Bush(2004, Republican',  fontsize=20, xlabel=<<b>0.06</b> <br/> <font color='black'> <i>0.37</i> </font> >]
+        dd [pos = '-2,1!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.94</b> <br/> <font color='black'> High=<i>0.62</i> </font> >]
+        dr [pos = '2, 1!', label = 'Republican',  fontsize=20, xlabel=<<b>0.06</b> <br/> <font color='black'> <i>0.37</i> </font> >]
         
         #Rep
-        rd [pos = '-2,-2!', label = 'Kerry(2004, Democrat)',  fontsize=20, xlabel=<Low=<b>0.01</b> <br/> <font color='black'> High=<i>0.04</i> </font> >]
-        rr [pos = '2, -2!',  label = 'Bush(2004, Republican)',  fontsize=20, xlabel=<<b>0.99</b> <br/> <font color='black'> <i>0.96</i> </font> >]
+        rd [pos = '-2,-2!', label = 'Democratic',  fontsize=20, xlabel=<Low=<b>0.01</b> <br/> <font color='black'> High=<i>0.04</i> </font> >]
+        rr [pos = '2, -2!',  label = 'Republican',  fontsize=20, xlabel=<<b>0.99</b> <br/> <font color='black'> <i>0.96</i> </font> >]
 
-        dt1 [pos =  '0,3!', label = 'Democratic Candidate\n(t-1)',  fontsize=20]
-        rt1 [pos =  '0,0!', label = 'Republican Candidate\n(t-1)',  fontsize=20]
-        
-        #Dem
-        dd [pos = '-2,1!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.92</b> <br/> <font color='black'> High=<i>0.78</i> </font> >]
-        dr [pos = '2, 1!', label = 'Republican',  fontsize=20, xlabel=<<b>0.08</b> <br/> <font color='black'> <i>0.21</i> </font> >]
-        
-        #Rep
-        rd [pos = '-2,-2!', label = 'Democratic',  fontsize=20, xlabel=<Low=<b>0.01</b> <br/> <font color='black'> High=<i>0.06</i> </font> >]
-        rr [pos = '2, -2!',  label = 'Republican',  fontsize=20, xlabel=<<b>0.99</b> <br/> <font color='black'> <i>0.94</i> </font> >]
 
         dt1->dd  [ headport=n]
         dt1->dr  [ headport=n]
@@ -1256,19 +1232,8 @@ plot.2012<-
         color = crimson]
         node [shape = rectangle]
         
-        dt1 [pos =  '0,3!', label = 'Obama(2012, Democrat)',  fontsize=20]
-        rt1 [pos =  '0,0!', label = 'Romney(2012, Republican)',  fontsize=20]
-        
-        #Dem
-        dd [pos = '-2,1!', label = 'Clinton(2016, Democrat)',  fontsize=20, xlabel=<Low=<b>0.95</b> <br/> <font color='black'> High=<i>0.71</i> </font> >]
-        dr [pos = '2, 1!', label = 'Trump(2016, Republican)',  fontsize=20, xlabel=<<b>0.05</b> <br/> <font color='black'> <i>0.29</i> </font> >]
-        
-        #Rep
-        rd [pos = '-2,-2!', label = 'Clinton(2016, Democrat)',  fontsize=20, xlabel=<Low=<b>0.10</b> <br/> <font color='black'> High=<i>0.02</i> </font> >]
-        rr [pos = '2, -2!',  label = 'Trump(2016, Republican)',  fontsize=20, xlabel=<<b>0.90</b> <br/> <font color='black'> <i>0.98</i> </font> >]
-
-        dt1 [pos =  '0,3!', label = 'Democratic Candidate\n(t-1)',  fontsize=20]
-        rt1 [pos =  '0,0!', label = 'Republican Candidate\n(t-1)',  fontsize=20]
+        dt1 [pos =  '0,3!', label = 'Democrat(t-1)',  fontsize=20]
+        rt1 [pos =  '0,0!', label = 'Republican(t-1)',  fontsize=20]
         
         #Dem
         dd [pos = '-2,1!', label = 'Democrat',  fontsize=20, xlabel=<Low=<b>0.95</b> <br/> <font color='black'> High=<i>0.71</i> </font> >]
@@ -1297,6 +1262,13 @@ d4$authXsilent<-d4$authoritarianism*d4$silent.gen
 d4$authXboomer<-d4$authoritarianism*d4$boomer.gen
 d4$authXgenx<-d4$authoritarianism*d4$genx.gen
 d4$authXmillenial<-d4$authoritarianism*d4$mil.gen
+
+
+
+table(d4$silent.gen)/sum(table(d4$silent.gen))
+table(d4$boomer.gen)/sum(table(d4$boomer.gen))
+table(d4$genx.gen)/sum(table(d4$genx.gen))
+table(d4$mil.gen)/sum(table(d4$mil.gen))
 
 
 #### 2012-2017
@@ -1329,6 +1301,10 @@ data<-data.frame(id=rep(1:length(d4$id), times=2), state=c(d4$pid3.1, d4$pid3.3)
                  )
 
 mean(with(data, authoritarianism[boomer.gen==0 & genx.gen==0  & mil.gen==0]), na.rm=T)
+mean(with(data, authoritarianism[boomer.gen==1]), na.rm=T)
+mean(with(data, authoritarianism[genx.gen==1]), na.rm=T)
+mean(with(data, authoritarianism[mil.gen==1]), na.rm=T)
+
 mean(with(data, authoritarianism[boomer.gen==1]), na.rm=T)
 mean(with(data, authoritarianism[genx.gen==1]), na.rm=T)
 mean(with(data, authoritarianism[mil.gen==1]), na.rm=T)
@@ -1385,7 +1361,14 @@ dat$t2= rep(c("Democrat(2016)", "Lean Democrat(2016)",
 dat$generation<-rep(c("Greatest/Silent", "Boomer", "Gen X", "Millennial"), each=50)
 dat$authoritarian<-rep(c("Authoritarian", "Non-Authoritarian"), each=25)
 
-
+with(t1,
+     rbind(
+     transition[generation=="Greatest/Silent" & authoritarian=="Authoritarian" & t1=="Dem(2012)"],
+     transition[generation=="Greatest/Silent" & authoritarian=="Authoritarian" & t1=="Lean Dem(2012)"],
+     transition[generation=="Greatest/Silent" & authoritarian=="Authoritarian" & t1=="Ind(2012)"],
+     transition[generation=="Greatest/Silent" & authoritarian=="Authoritarian" & t1=="Lean Rep(2012)"],
+     transition[generation=="Greatest/Silent" & authoritarian=="Authoritarian" & t1=="Rep(2012)"]
+))
 library(hrbrthemes)
 library(viridis)
 

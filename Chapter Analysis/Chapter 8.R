@@ -3,7 +3,6 @@
 # This chapter uses both the VSG and ANES data ##
 ####-------------------------------------------------------------------------------------####
 ### Recode Block ###
-{
   rm(list=ls())
   #Figure working directory#
   setwd("/Users/chrisweber/Dropbox/Working Projects/Authoritarianism_BookProject/Book/Chapters/Edited Chapters_Weber/Figures/")
@@ -68,10 +67,9 @@
   black.data<-subset(data, black==1 & year>=2008)
   hispanic.data<-subset(data, hispanic==1 & year>=2008)
   nonwhite.data<-subset(data, ((hispanic==1 | black==1) & year>=2008))
-}
-auth.split<-ifelse(white.data$authoritarianism<0.5, 0, 1)
+
 ### Part I: Context###
-{  
+  
     tt<-as.formula(party3~
                      authoritarianism+
                      female+age+college+income+
@@ -158,12 +156,12 @@ total.plot<-subset(total.plot, Group!="Independent")
                                  fill=party3))+
       stat_density_ridges(geom="density_ridges", 
                           bandwidth=.12,
-                          alpha = .75, color = "black",
+                          alpha = .50, color = "black",
                           quantile_lines=FALSE, quantiles = 2)+
       scale_fill_cyclical(
-        values = c("grey", "black"),
+        values = c("lightgrey", "black"),
         name = "Party", guide = "legend")+
-      xlab('Value') +n
+      xlab('Value') +
       theme_joy()+
       theme(axis.title.y = element_blank())+
       xlab("Density Plots")+
@@ -370,7 +368,7 @@ plot1<-ggplot(data =subset(plot.data, R.Party!="Independent Respondent"),
   theme(panel.grid.major=element_line(colour="#D0D0D0",size=.25)) +
   theme(axis.ticks=element_blank())+
   ggtitle("Ideology and Authoritarianism. White Respondents") +
-  theme(plot.title=element_text(face="bold",hjust=-.08,vjust=2,colour="#3C3C3C",size=12)) +
+  theme(plot.title=element_text(face="bold",hjust=0,vjust=2,colour="#3C3C3C",size=12)) +
   theme(axis.text.x=element_text(size=10,colour="#535353",face="bold", angle=0)) +
   theme(axis.text.y=element_text(size=11, colour="#535353",face="bold")) +
   theme(axis.title.y=element_text(size=11,colour="#535353",face="bold",vjust=1.5)) +
@@ -383,9 +381,9 @@ dev.copy(png,'ch8_4.jpg',
          width = 750, height = 500)
 dev.off()
 
-  }
+  
 ####### Part II. Defection  ######
-{
+
     rm(list=ls())
     detach("package:dplyr")
     require(car)
@@ -1313,9 +1311,9 @@ dev.off()
     dev.copy(png,'ch8_15.jpg',
              width = 750, height = 500)
     dev.off()
-}
+
 # Hispanic analysis, parallel to blacks
-{    # 4) All analyses are pooled, with a fixed effect for the survey year. 
+    # 4) All analyses are pooled, with a fixed effect for the survey year. 
 hispanic.data<-nonwhite.data
   
   tt<-as.formula(voted~

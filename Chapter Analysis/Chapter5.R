@@ -70,6 +70,69 @@ tapply(white.data$democrat[white.data$year==1992], ifelse(white.data$authoritari
 tapply(white.data$democrat[white.data$year==2016], ifelse(white.data$authoritarianism[white.data$year==2016]>0.56, 1, 0),  mean, na.rm=T)
 white.data$auth.high<-ifelse(white.data$authoritarianism>quantile(white.data$authoritarianism, 0.75, na.rm=T), 1, NA)
 white.data$auth.high<-ifelse(white.data$authoritarianism<quantile(white.data$authoritarianism, 0.25, na.rm=T), 0, white.data$auth.high)
+
+white.data$auth.high<-ifelse(white.data$authoritarianism>=quantile(white.data$authoritarianism, 0.5, na.rm=T), 1, 0)
+
+nonwhite.data$auth.high<-ifelse(nonwhite.data$authoritarianism>=quantile(nonwhite.data$authoritarianism, 0.5, na.rm=T), 1, 0)
+
+#### Some questions
+t<-table(white.data$auth.high[white.data$year==1992], white.data$party3[white.data$year==1992])
+prop.table(t, 1)
+
+#### Some questions
+t<-table(white.data$auth.high[white.data$year==1992], white.data$party3[white.data$year==1992])
+prop.table(t, 1)
+
+t<-table(white.data$auth.high[white.data$year==2016], white.data$party3[white.data$year==2016])
+prop.table(t, 1)
+
+t<-table(white.data$auth.high[white.data$year==1992], white.data$party3[white.data$year==1992])
+prop.table(t, 2)
+
+t<-table(white.data$auth.high[white.data$year==2016], white.data$party3[white.data$year==2016])
+prop.table(t, 2)
+
+t<-table(white.data$party3[white.data$year==1992])
+prop.table(t)
+
+t<-table(white.data$party3[white.data$year==2016])
+prop.table(t)
+
+t<-table(white.data$auth.high[white.data$year==1992])
+prop.table(t)
+
+t<-table(white.data$auth.high[white.data$year==2016])
+prop.table(t)
+
+
+
+
+t<-table(nonwhite.data$auth.high[nonwhite.data$year==1992], nonwhite.data$party3[nonwhite.data$year==1992])
+prop.table(t, 1)
+
+t<-table(nonwhite.data$auth.high[nonwhite.data$year==2016], nonwhite.data$party3[nonwhite.data$year==2016])
+prop.table(t, 1)
+
+t<-table(nonwhite.data$auth.high[nonwhite.data$year==1992], nonwhite.data$party3[nonwhite.data$year==1992])
+prop.table(t, 2)
+
+t<-table(nonwhite.data$auth.high[nonwhite.data$year==2016], nonwhite.data$party3[nonwhite.data$year==2016])
+prop.table(t, 2)
+
+t<-table(nonwhite.data$auth.high[nonwhite.data$year==2016])
+prop.table(t)
+
+t<-table(nonwhite.data$auth.high[nonwhite.data$year==1992])
+prop.table(t)
+
+
+
+#### Some questions
+t<-table(white.data$auth.high[white.data$year==2016], white.data$party3[white.data$year==2016])
+prop.table(t, 2)
+
+
+
 t<-table(white.data$auth.high[white.data$year==1992], white.data$party3[white.data$year==1992])
 prop.table(t)
 t<-table(white.data$auth.high[white.data$year==2000], white.data$party3[white.data$year==2000])
@@ -83,6 +146,53 @@ prop.table(t)
 t<-table(white.data$auth.high[white.data$year==2016], white.data$party3[white.data$year==2016])
 prop.table(t)
 
+
+
+t<-table(white.data$auth.high[white.data$year==1992], white.data$party3[white.data$year==1992])
+prop.table(t, 2)
+
+t<-table(white.data$auth.high[white.data$year==1992])
+
+t<-table(white.data$auth.high[white.data$year==1992])
+
+t<-table(white.data$auth.high[white.data$year==2016], white.data$party3[white.data$year==2016])
+prop.table(t, 1)
+
+
+###### Why? Use Bayes Law ######
+# So, what is the probability of identifying as authoritarian given one is a partisan #
+t<-table(white.data$auth.high[white.data$year==1992], white.data$party3[white.data$year==1992])
+prop.table(t, 2)
+
+t<-table(white.data$auth.high[white.data$year==2016], white.data$party3[white.data$year==2016])
+prop.table(t, 2)
+
+t<-table(white.data$auth.high[white.data$year==1992], white.data$party3[white.data$year==1992])
+prop.table(t, 2)
+
+t<-table(white.data$auth.high[white.data$year==2016], white.data$party3[white.data$year==2016])
+prop.table(t, 2)
+
+
+
+t<-table(white.data$auth.high[white.data$year==2016], white.data$party3[white.data$year==2016])
+prop.table(t, 2)
+
+t<-table(white.data$auth.high[white.data$year==1992])
+prop.table(t)
+
+t<-table(white.data$auth.high[white.data$year==2016], white.data$party3[white.data$year==2016])
+prop.table(t)
+t<-table(white.data$auth.high[white.data$year==2016])
+prop.table(t)
+
+t<-table(white.data$party3[white.data$year==1992])
+prop.table(t)
+
+
+
+t<-table(white.data$party3[white.data$year==2016])
+prop.table(t)
 
 {
 ### Authoritarianism maps onto vote choice; this represents the total marginal effect
@@ -1611,7 +1721,85 @@ logit.change(e)
 logit.change(f)
 
 
+#### Counterfactual Prediction #####
 
+### Show how authoritarianism maps onto PID
+require(nnet)
+### (2) Alignment with authoritarianism and PID
+#a. Multinomial Logit. Present Figure
+tt<-as.formula(party3~
+                 authoritarianism+
+                 female+age+college+income+
+                 jewish+catholic+other)
+require(nnet)
+a<-multinom(tt, data=subset(white.data, year==1992))
+model.matrix(a)
+dat<- na.omit(subset(white.data, year==2016, select=c("party3", "authoritarianism", "female", "age", "college", "income", "jewish", "catholic", "other")))
+y.comp<-dat$party3
+dat<- subset(white.data, year==2016, select=c("authoritarianism", "female", "age", "college", "income", "jewish", "catholic", "other"))
+out<-predict(a, dat)            
+table(y.comp)/sum(table(y.comp))  ### This is the observed 2016 data
+table(out)/sum(table(out))  ### This is the observed 2016 data
+tt<-as.formula(party3~
+                 female+age+college+income+
+                 jewish+catholic+other)
+a<-multinom(tt, data=subset(white.data, year==2016))
+model.matrix(a)
+dat<- na.omit(subset(white.data, year==2016, select=c("party3", "authoritarianism", "female", "age", "college", "income", "jewish", "catholic", "other")))
+y.comp<-dat$party3
+dat<- subset(dat,  select=c( "female", "age", "college", "income", "jewish", "catholic", "other"))
+out<-predict(a)            
+table(y.comp)/sum(table(y.comp))  ### This is the observed 2016 data
+table(out)/sum(table(out))  ### This is the observed 2016 data
+
+##### Or, we could do this for voting, which may be better ###
+tt<-as.formula(vote~
+                 authoritarianism+
+                 female+age+college+income+
+                 jewish+catholic+other)
+a<-glm(tt, data=subset(white.data, year==1992), family=binomial("logit"))
+model.matrix(a)
+dat<- na.omit(subset(white.data, year==2008, select=c("vote", "authoritarianism", "female", "age", "college", "income", "jewish", "catholic", "other")))
+dat.m<- subset(dat, select=c("authoritarianism", "female", "age", "college", "income", "jewish", "catholic", "other"))
+out<-rbinom(length(dat.m[,1]), 1, plogis(predict(a, dat.m)))           
+table(dat$vote)/sum(table(dat$vote))  ### This is the observed 2016 data
+table(out)/sum(table(out))  ### This is the observed 2016 data
+
+### Simulate each election year #####
+
+### Full model, white and non white ###  
+  set.seed(1234)
+  tt<-as.formula(vote~authoritarianism+
+                   female+age+college+income+
+                   jewish+catholic+other)
+  a<-glm(tt, data=subset(white.data, year==1992), family=binomial("logit"))
+  year=c(2000, 2004, 2008, 2012, 2016)
+  ### Generate each design matrix 
+  design.list<-list()
+  for(i in 1:5){
+    design.list[[i]]<-subset(white.data, year==year[i],  select=c("vote", "authoritarianism", 
+                                                                "female", "age", "college",   
+                                                                "income", "jewish", "catholic", 
+                                                                "other")) %>% na.omit()
+  }
+  actual<-NA
+  for(i in 1:5){
+  actual=rbind(actual, as.numeric(table(design.list[[i]]["vote"])/sum(table(design.list[[i]]["vote"]))))
+  }
+  actual<-actual[-1,2]
+  #####predicated values####
+  pred.list<-list() ### List of predictions
+  for(i in 1:5){
+    pred.list[[i]]<-rbinom(dim(design.list[[i]])[1], 1, plogis(predict(a, design.list[[i]][,2:9])))
+  }                         
+  ### Retrieve prediction ###
+  predictions<-unlist(lapply(pred.list, mean))
+  data.frame(actual=actual, prediction=predictions)
+                           
+                           
+  
+  
+  
 
 
 
